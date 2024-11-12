@@ -13,7 +13,7 @@
   
   <title>
     
-      SyncTV搭建 
+      archive_a: 2024/11 
       
       
       |
@@ -108,139 +108,86 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
 
+<!-- last: 按年份把文章分组，当前遍历到的年份 -->
+<!-- now: 当前遍历到的文章的发布年份 -->
 
-  <!-- LaTex Display -->
-
-  
-    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
-  
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    }
-  </script>
-
-
-
-
-
-  <!-- clipboard -->
-
-  
-    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
-  
-  
-<script src="/js/codeCopy.js"></script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">SyncTV搭建</div>
-      <div class="post-attach">
-        <!--<span class="post-pubtime">
-          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2024-08-31 09:25:19
-        </span>-->
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="标签"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/docker/" title="docker">
-                    #docker
-                  </a>
-                </span>
-                
-              </span>
-          
-      </div>
-      <div class="markdown-body">
-        <p>最近无意间看到个项目，可以和朋友么一起看电影和直播的，感觉够私密，就分享一下。名称叫SyncTV，有兴趣的朋友可以玩玩。这个前提得准备个服务器和域名（PS: 当然没域名直接裸连也不是不行啦）<br>现在我们开始</p>
-<p>第一步，安装docker和docker-compose</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L “https://github.com/docker/compose/releases/latest/download/docker-compose-$ 14(uname -s)-$(uname -m)” -o /usr/local/bin/docker-compose &amp;&amp; chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
-<p>第二步，创建个yml文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3.3&#x27;  # 这是一个Docker Compose文件的版本声明，它表明该文件符合Docker Compose文件格式版本3.3</span><br><span class="line">services:</span><br><span class="line">    ywsj_synctv:   #服务名，可以自定义</span><br><span class="line">        container_name: ywsj_synctv    #容器名，可以自定义</span><br><span class="line">        ports:</span><br><span class="line">            - &#x27;8080:8080&#x27;   # 冒号:左边的8080可以改成任意vps上未使用过的端口,冒号右边是本docker镜像里的端口</span><br><span class="line">        environment:</span><br><span class="line">            - PUID=0    # 用户ID,在终端输入id可以查看当前用户的id</span><br><span class="line">            - PGID=0    # 组ID同上</span><br><span class="line">            - TZ=Asia/Shanghai  #时区，可以自定义</span><br><span class="line">        restart: always    #开启自启动其他选项看以下备注</span><br><span class="line">        volumes:</span><br><span class="line">            - &#x27;./data:/root/.synctv&#x27;    #数据持久化目录映射</span><br><span class="line">        image: synctvorg/synctv    #镜像名一般都是使用的哪个镜像就写哪个镜像。</span><br></pre></td></tr></table></figure>
-
-<p>第三步，启动容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d #运行容器</span><br></pre></td></tr></table></figure>
-
-<p>最后我们就可以访问了 ip:8080</p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2024/07/26/docker%E5%AE%89%E8%A3%85/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>上一页</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-          <!-- <span class="post-pubtime">
-              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2024-08-31 09:25:19
-            </span>-->
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="标签"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/docker/" title="docker">
-                        #docker
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2024/08/05/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
+<div class="container archives">
+  <div class="post-list">
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2024</span>
+          </h2>
         </div>
       
-    </div>
+      <div class="post-item" title="Open WebUI安装">
+        <div class="time-m-d">11-12</div>
+        <div class="title">
+          <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/">
+            <span>Open WebUI安装</span>
+          </a>
+        </div>
+      </div>
     
-
+      <div class="post-item" title="docker镜像加速步骤">
+        <div class="time-m-d">09-18</div>
+        <div class="title">
+          <a href="/2024/09/18/docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/">
+            <span>docker镜像加速步骤</span>
+          </a>
+        </div>
+      </div>
     
-      <div class="comments-container">
-        
-
-
-
-
-
-
-
+      <div class="post-item" title="new-api反代设置">
+        <div class="time-m-d">09-03</div>
+        <div class="title">
+          <a href="/2024/09/03/new-api%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE/">
+            <span>new-api反代设置</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="DD系统">
+        <div class="time-m-d">08-30</div>
+        <div class="title">
+          <a href="/2024/08/30/DD%E7%B3%BB%E7%BB%9F/">
+            <span>DD系统</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="服务器基础配置">
+        <div class="time-m-d">08-05</div>
+        <div class="title">
+          <a href="/2024/08/05/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/">
+            <span>服务器基础配置</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="SyncTV搭建">
+        <div class="time-m-d">07-26</div>
+        <div class="title">
+          <a href="/2024/07/26/SyncTV%E6%90%AD%E5%BB%BA/">
+            <span>SyncTV搭建</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="docker及docker-compose安装">
+        <div class="time-m-d">07-26</div>
+        <div class="title">
+          <a href="/2024/07/26/docker%E5%AE%89%E8%A3%85/">
+            <span>docker及docker-compose安装</span>
+          </a>
+        </div>
       </div>
     
   </div>
-
+</div>
 
         
 <div class="footer">
@@ -545,24 +492,6 @@
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + SyncTV%E6%90%AD%E5%BB%BA + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F07%2F26%2FSyncTV%25E6%2590%25AD%25E5%25BB%25BA%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/07/26/SyncTV%E6%90%AD%E5%BB%BA/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>
