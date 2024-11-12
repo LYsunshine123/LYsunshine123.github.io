@@ -13,6 +13,11 @@
   
   <title>
     
+      RustDesk自建中继服务器 
+      
+      
+      |
+    
      Hexo
   </title>
 
@@ -103,121 +108,141 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="RustDesk自建中继服务器">
-        <div class="time-m-d">2024-11-12</div>
-        <div class="title">
-          <a href="/2024/11/12/RustDesk%E8%87%AA%E5%BB%BA%E4%B8%AD%E7%BB%A7%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-            
-              
-                <span>RustDesk自建中继服务器</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">RustDesk自建中继服务器</div>
+      <div class="post-attach">
+        <!--<span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2024-11-12 09:58:18
+        </span>-->
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/docker/" title="docker">
+                    #docker
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="Open WebUI安装">
-        <div class="time-m-d">2024-11-12</div>
-        <div class="title">
-          <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/">
-            
-              
-                <span>Open WebUI安装</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>最近正好购买了一台国内云服务器，终于可以自建远程服务器了，选了github上很热门的restdesk项目，话不多说，开始部署。<br>PS:提前安装好docker</p>
+<p><strong>第一步：开发端口</strong><br>将下列端口开放<br>TCP：21115、21116、21117、21118 、21119<br>UDP：21116</p>
+<p><strong>第二步：创建文件夹</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir rustdesk &amp;&amp;cd rustdesk</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步：创建docker-compose.yml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim docker-compose.yml</span><br></pre></td></tr></table></figure>
+
+<p>xxx.xxx.xxx.xxx修改为公网ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3&#x27;</span><br><span class="line"> </span><br><span class="line">networks:</span><br><span class="line">  rustdesk-net:</span><br><span class="line">    external: false</span><br><span class="line"> </span><br><span class="line">services:</span><br><span class="line">  hbbs:</span><br><span class="line">    container_name: hbbs</span><br><span class="line">    ports:</span><br><span class="line">      - 21115:21115</span><br><span class="line">      - 21116:21116</span><br><span class="line">      - 21116:21116/udp</span><br><span class="line">      - 21118:21118</span><br><span class="line">    image: rustdesk/rustdesk-server:latest</span><br><span class="line">    command: hbbs -r xxx.xxx.xxx.xxx:21117  -k _</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data:/root</span><br><span class="line">    networks:</span><br><span class="line">      - rustdesk-net</span><br><span class="line">    depends_on:</span><br><span class="line">      - hbbr</span><br><span class="line">    restart: unless-stopped</span><br><span class="line"> </span><br><span class="line">  hbbr:</span><br><span class="line">    container_name: hbbr</span><br><span class="line">    ports:</span><br><span class="line">      - 21117:21117</span><br><span class="line">      - 21119:21119</span><br><span class="line">    image: rustdesk/rustdesk-server:latest</span><br><span class="line">    command: hbbr  -k _</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data:/root</span><br><span class="line">    networks:</span><br><span class="line">      - rustdesk-net</span><br><span class="line">    restart: unless-stopped</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步：启动服务</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五步：查看key</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ./data/id_ed25519.pub</span><br></pre></td></tr></table></figure>
+
+<p>最后将key放入rustdesk客户端就可以进行愉快玩耍了。</p>
+
       </div>
-    
-      <div class="post-item" title="docker镜像加速步骤">
-        <div class="time-m-d">2024-09-18</div>
-        <div class="title">
-          <a href="/2024/09/18/docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>docker镜像加速步骤</span>
-              
+              <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+          <!-- <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2024-11-12 09:58:18
+            </span>-->
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/docker/" title="docker">
+                        #docker
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="new-api反代设置">
-        <div class="time-m-d">2024-09-03</div>
-        <div class="title">
-          <a href="/2024/09/03/new-api%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE/">
-            
-              
-                <span>new-api反代设置</span>
-              
-            
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="DD系统">
-        <div class="time-m-d">2024-08-30</div>
-        <div class="title">
-          <a href="/2024/08/30/DD%E7%B3%BB%E7%BB%9F/">
-            
-              
-                <span>DD系统</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="服务器基础配置">
-        <div class="time-m-d">2024-08-05</div>
-        <div class="title">
-          <a href="/2024/08/05/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/">
-            
-              
-                <span>服务器基础配置</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SyncTV搭建">
-        <div class="time-m-d">2024-07-26</div>
-        <div class="title">
-          <a href="/2024/07/26/SyncTV%E6%90%AD%E5%BB%BA/">
-            
-              
-                <span>SyncTV搭建</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="docker及docker-compose安装">
-        <div class="time-m-d">2024-07-26</div>
-        <div class="title">
-          <a href="/2024/07/26/docker%E5%AE%89%E8%A3%85/">
-            
-              
-                <span>docker及docker-compose安装</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         
 <div class="footer">
@@ -522,6 +547,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + RustDesk%E8%87%AA%E5%BB%BA%E4%B8%AD%E7%BB%A7%E6%9C%8D%E5%8A%A1%E5%99%A8 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F11%2F12%2FRustDesk%25E8%2587%25AA%25E5%25BB%25BA%25E4%25B8%25AD%25E7%25BB%25A7%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/11/12/RustDesk%E8%87%AA%E5%BB%BA%E4%B8%AD%E7%BB%A7%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
