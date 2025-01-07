@@ -13,7 +13,7 @@
   
   <title>
     
-      docker镜像加速步骤 
+      SSH密钥登录设置 
       
       
       |
@@ -153,19 +153,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">docker镜像加速步骤</div>
+      <div class="post-title">SSH密钥登录设置</div>
       <div class="post-attach">
         <!--<span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2024-09-18 10:21:48
+          2025-01-07 15:52:18
         </span>-->
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="标签"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/docker/" title="docker">
-                    #docker
+                  <a href="/tags/vps/" title="vps">
+                    #vps
                   </a>
                 </span>
                 
@@ -173,22 +173,24 @@
           
       </div>
       <div class="markdown-body">
-        <p>国内docker镜像加速方法，下文<a target="_blank" rel="noopener" href="https://docker.wget.at可找公共资源也可自建/">https://docker.wget.at可找公共资源也可自建</a><br>一键设置镜像加速：修改文件 &#x2F;etc&#x2F;docker&#x2F;daemon.json（如果不存在则创建）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
-<p>修改JSON文件 更改为以下内容 然后保存</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">          &quot;registry-mirrors&quot;: [</span><br><span class="line">                &quot;https://docker.wget.at&quot;</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>一、生成SSH密钥对<br>本地电脑终端输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519</span><br></pre></td></tr></table></figure>
+<p>默认路径：~&#x2F;.ssh&#x2F;id_rsa</p>
+<p>二、上传到服务器<br>登录服务器之后可利用ftp上传，上传路径为：~&#x2F;.ssh&#x2F;authorized_keys</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.ssh</span><br><span class="line">echo &quot;your-public-key-content&quot; &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br></pre></td></tr></table></figure>
+<p>也可以直接复制公钥.pub里面的内容粘贴到~&#x2F;.ssh&#x2F;authorized_keys文件内，如果vps上没有authorized_keys文件可先创建。</p>
+<p>三、编辑配置文件<br>进入&#x2F;etc&#x2F;ssh&#x2F;sshd_config中，设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin prohibit-password   # 禁止root用户通过密码登录</span><br><span class="line">PasswordAuthentication no          # 禁用密码登录 可不禁用</span><br><span class="line">PubkeyAuthentication yes           # 启用公钥认证</span><br><span class="line">AuthorizedKeysFile     .ssh/authorized_keys  # 公钥存储位置</span><br></pre></td></tr></table></figure>
+<p>重启SSH</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart ssh</span><br></pre></td></tr></table></figure>
+<p>按照上述方法即可密钥登录。</p>
 
-<p>重载systemd管理守护进程配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<p>重启 Docker 服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/09/03/new-api%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE/" target="_self">
+              <a href="/2024/11/12/RustDesk%E8%87%AA%E5%BB%BA%E4%B8%AD%E7%BB%A7%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>上一页</span>
               </a>
@@ -197,15 +199,15 @@
           <div class="post-attach">
           <!-- <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2024-09-18 10:21:48
+              2025-01-07 15:52:18
             </span>-->
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="标签"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/docker/" title="docker">
-                        #docker
+                      <a href="/tags/vps/" title="vps">
+                        #vps
                       </a>
                     </span>
                     
@@ -213,11 +215,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -550,12 +547,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%AD%A5%E9%AA%A4 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F09%2F18%2Fdocker%25E9%2595%259C%25E5%2583%258F%25E5%258A%25A0%25E9%2580%259F%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + SSH%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE + '&url=' + http%3A%2F%2Fexample.com%2F2025%2F01%2F07%2FSSH%25E5%25AF%2586%25E9%2592%25A5%25E7%2599%25BB%25E5%25BD%2595%25E8%25AE%25BE%25E7%25BD%25AE%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/09/18/docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2025/01/07/SSH%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         

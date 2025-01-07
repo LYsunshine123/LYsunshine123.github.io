@@ -13,7 +13,7 @@
   
   <title>
     
-      docker镜像加速步骤 
+      archive_a: 2025/1 
       
       
       |
@@ -108,137 +108,111 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
 
+<!-- last: 按年份把文章分组，当前遍历到的年份 -->
+<!-- now: 当前遍历到的文章的发布年份 -->
 
-  <!-- LaTex Display -->
-
-  
-    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
-  
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    }
-  </script>
-
-
-
-
-
-  <!-- clipboard -->
-
-  
-    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
-  
-  
-<script src="/js/codeCopy.js"></script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">docker镜像加速步骤</div>
-      <div class="post-attach">
-        <!--<span class="post-pubtime">
-          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-          2024-09-18 10:21:48
-        </span>-->
-        
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="标签"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/docker/" title="docker">
-                    #docker
-                  </a>
-                </span>
-                
-              </span>
-          
-      </div>
-      <div class="markdown-body">
-        <p>国内docker镜像加速方法，下文<a target="_blank" rel="noopener" href="https://docker.wget.at可找公共资源也可自建/">https://docker.wget.at可找公共资源也可自建</a><br>一键设置镜像加速：修改文件 &#x2F;etc&#x2F;docker&#x2F;daemon.json（如果不存在则创建）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
-<p>修改JSON文件 更改为以下内容 然后保存</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">          &quot;registry-mirrors&quot;: [</span><br><span class="line">                &quot;https://docker.wget.at&quot;</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>重载systemd管理守护进程配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<p>重启 Docker 服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2024/09/03/new-api%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>上一页</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-          <!-- <span class="post-pubtime">
-              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
-              2024-09-18 10:21:48
-            </span>-->
-            
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="标签"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/docker/" title="docker">
-                        #docker
-                      </a>
-                    </span>
-                    
-                  </span>
-              
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/" target="_self">
-                <span>下一页</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
+<div class="container archives">
+  <div class="post-list">
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2025</span>
+          </h2>
         </div>
       
-    </div>
+      <div class="post-item" title="SSH密钥登录设置">
+        <div class="time-m-d">01-07</div>
+        <div class="title">
+          <a href="/2025/01/07/SSH%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE/">
+            <span>SSH密钥登录设置</span>
+          </a>
+        </div>
+      </div>
     
-
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2024</span>
+          </h2>
+        </div>
+      
+      <div class="post-item" title="RustDesk自建中继服务器">
+        <div class="time-m-d">11-12</div>
+        <div class="title">
+          <a href="/2024/11/12/RustDesk%E8%87%AA%E5%BB%BA%E4%B8%AD%E7%BB%A7%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+            <span>RustDesk自建中继服务器</span>
+          </a>
+        </div>
+      </div>
     
-      <div class="comments-container">
-        
-
-
-
-
-
-
-
+      <div class="post-item" title="Open WebUI安装">
+        <div class="time-m-d">11-12</div>
+        <div class="title">
+          <a href="/2024/11/12/Open%20WebUI%E5%AE%89%E8%A3%85/">
+            <span>Open WebUI安装</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="docker镜像加速步骤">
+        <div class="time-m-d">09-18</div>
+        <div class="title">
+          <a href="/2024/09/18/docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/">
+            <span>docker镜像加速步骤</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="new-api反代设置">
+        <div class="time-m-d">09-03</div>
+        <div class="title">
+          <a href="/2024/09/03/new-api%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE/">
+            <span>new-api反代设置</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="DD系统">
+        <div class="time-m-d">08-30</div>
+        <div class="title">
+          <a href="/2024/08/30/DD%E7%B3%BB%E7%BB%9F/">
+            <span>DD系统</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="服务器基础配置">
+        <div class="time-m-d">08-05</div>
+        <div class="title">
+          <a href="/2024/08/05/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/">
+            <span>服务器基础配置</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="SyncTV搭建">
+        <div class="time-m-d">07-26</div>
+        <div class="title">
+          <a href="/2024/07/26/SyncTV%E6%90%AD%E5%BB%BA/">
+            <span>SyncTV搭建</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="docker及docker-compose安装">
+        <div class="time-m-d">07-26</div>
+        <div class="title">
+          <a href="/2024/07/26/docker%E5%AE%89%E8%A3%85/">
+            <span>docker及docker-compose安装</span>
+          </a>
+        </div>
       </div>
     
   </div>
-
+</div>
 
         
 <div class="footer">
@@ -543,24 +517,6 @@
 
 
         
-  
-    <div class="share-icon tools-bar-item">
-      <a href="javascript: void(0)" id="share-icon">
-        <i class="iconfont iconshare"></i>
-      </a>
-      <div class="share-content hidden">
-        
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%AD%A5%E9%AA%A4 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F09%2F18%2Fdocker%25E9%2595%259C%25E5%2583%258F%25E5%258A%25A0%25E9%2580%259F%2F + '" target="_blank" title="Twitter">
-            <i class="iconfont icon-twitter"></i>
-          </a>
-        
-        
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/09/18/docker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" target="_blank" title="Facebook">
-            <i class="iconfont icon-facebooksquare"></i>
-          </a>
-        
-      </div>
-    </div>
   
   
 <script src="/js/shares.js"></script>
